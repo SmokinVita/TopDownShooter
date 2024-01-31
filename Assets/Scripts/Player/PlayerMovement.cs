@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IDamageable
 {
 
     [Header ("Movement")]
@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Firing")]
     [SerializeField] private GameObject _projectilePrefab;
     [SerializeField] private Transform _firePos;
+
+    public int Health { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +63,8 @@ public class PlayerMovement : MonoBehaviour
         _rb.MovePosition(transform.position + offset);
     }
 
+    //player shotgun shot(triple shot), Machinegun fire, Big Shot but slow
+
     private void Shoot()
     {
         if(Input.GetMouseButtonDown(0))
@@ -68,5 +72,10 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Shooting!!");
             Instantiate(_projectilePrefab, _firePos.transform.position, _firePos.transform.rotation);
         }
+    }
+
+    public void Damage(int damageAmount)
+    {
+        Debug.Log("I'm Hit!");
     }
 }

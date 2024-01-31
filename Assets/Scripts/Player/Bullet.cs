@@ -18,4 +18,16 @@ public class Bullet : MonoBehaviour
     {
         transform.Translate(Vector3.forward * _speed * Time.deltaTime);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        IDamageable damageable = other.GetComponent<IDamageable>();
+        if (damageable != null )
+        {
+            
+            Debug.Log("Hit something that is damageable");
+            damageable.Damage(2);
+            Destroy(gameObject);
+        }
+    }
 }
