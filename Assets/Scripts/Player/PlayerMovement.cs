@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour, IDamageable
     [SerializeField] private Transform _firePos;
 
     public int Health { get; set; }
+    [SerializeField] private int _health;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,8 @@ public class PlayerMovement : MonoBehaviour, IDamageable
             Debug.Log("Rigidbody is Null on Player");
         }
         _mainCamera = FindObjectOfType<Camera>();
+
+        Health = _health;
     }
 
     private void Update()
@@ -63,7 +66,7 @@ public class PlayerMovement : MonoBehaviour, IDamageable
         _rb.MovePosition(transform.position + offset);
     }
 
-    //player shotgun shot(triple shot), Machinegun fire, Big Shot but slow
+    //player shotgun shot(triple shot)- done, Machinegun fire, Big Shot but slow
 
     private void Shoot()
     {
@@ -77,5 +80,14 @@ public class PlayerMovement : MonoBehaviour, IDamageable
     public void Damage(int damageAmount)
     {
         Debug.Log("I'm Hit!");
+        Health-= damageAmount;
+        if (Health <= 0)
+        {
+            Debug.Log("I'm Dead!!");
+            //message gamemanager I am dead to stop them from attacking!
+
+            //maybe use shader to fade character away
+            Destroy(gameObject, 2f);
+        }
     }
 }
