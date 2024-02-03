@@ -175,6 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _agent: {fileID: 0}
   _target: {fileID: 0}
+  _lootPrefab: {fileID: 2450947607268511239, guid: 74155173a0902be45a477910b6182c72, type: 3}
   _distance: 2
   _health: 5
 --- !u!1 &2018433191473156364

@@ -13,6 +13,9 @@ public class RangedEnemy : Enemy
 
     private void Update()
     {
+        if(GameManager.Instance.isDead())
+            return;
+
         if (Vector3.Distance(transform.position, _target.transform.position) < _distance && _canFire == true)
             Attack();
     }

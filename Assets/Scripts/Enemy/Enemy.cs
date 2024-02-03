@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public abstract class Enemy : MonoBehaviour, IDamageable
 {
     [SerializeField] protected NavMeshAgent _agent;
-    [SerializeField] protected GameObject _target;
+    [SerializeField] protected PlayerMovement _target;
+    [SerializeField] protected GameObject _lootPrefab;
     [SerializeField] protected float _distance = 1f;
     protected Vector3 _destination;
 
@@ -25,6 +26,12 @@ public abstract class Enemy : MonoBehaviour, IDamageable
             Debug.Log($"{this.gameObject.name}'s NavMeshAgent is NULL!");
         }
 
+        _target = FindObjectOfType<PlayerMovement>();
+        if(_target == null)
+        {
+            Debug.Log("Can't find Player!");
+        }
+
         _agent.destination = _destination;
 
         Health = _health;
@@ -38,6 +45,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     protected virtual void Movement()
     {
+        if (GameManager.Instance.isDead())
+            return;
+
         if (Vector3.Distance(_destination, _target.transform.position) > _distance)
         {
             _destination = _target.transform.position;
@@ -50,6 +60,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         Health -= damageAmount;
         if (Health <= 0)
         {
+            Instantiate(_lootPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

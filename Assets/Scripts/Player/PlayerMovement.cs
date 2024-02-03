@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour, IDamageable
 
     public int Health { get; set; }
     [SerializeField] private int _health;
+    private bool _isDead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -33,12 +34,14 @@ public class PlayerMovement : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        Shoot();
+        if(!_isDead)
+            Shoot();
     }
 
     void FixedUpdate()
     {
-        Movement();
+        if(!_isDead)
+            Movement();
     }
 
     private void Movement()
@@ -81,11 +84,14 @@ public class PlayerMovement : MonoBehaviour, IDamageable
     {
         Debug.Log("I'm Hit!");
         Health-= damageAmount;
+
+        
         if (Health <= 0)
         {
             Debug.Log("I'm Dead!!");
             //message gamemanager I am dead to stop them from attacking!
-
+            _isDead = true;
+            GameManager.Instance.PlayerHasDied(_isDead);
             //maybe use shader to fade character away
             Destroy(gameObject, 2f);
         }
