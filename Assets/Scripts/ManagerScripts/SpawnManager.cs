@@ -22,7 +22,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
 
     private IEnumerator SpawnMonsters()
     {
-        while (GameManager.Instance.isDead() == false)
+        while (GameManager.Instance.IsDead() == false)
         {
             float xSpawn = Random.Range(_player.transform.position.x - 20, _player.transform.position.x + 20);
             float zSpawn = Random.Range(_player.transform.position.z - 20, _player.transform.position.z + 20);

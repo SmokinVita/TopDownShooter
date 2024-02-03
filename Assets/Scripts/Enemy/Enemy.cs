@@ -45,7 +45,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     protected virtual void Movement()
     {
-        if (GameManager.Instance.isDead())
+        if (GameManager.Instance.IsDead())
             return;
 
         if (Vector3.Distance(_destination, _target.transform.position) > _distance)

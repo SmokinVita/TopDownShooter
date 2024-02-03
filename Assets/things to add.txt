@@ -1,0 +1,29 @@
+6 enemies 3- range 3- close 2 Boss.
+	Set up enemy attack and death animations
+
+
+?? card system for upgrades. ??
+
+upgrades to shotgun shot, rocket launcher.
+	could drop ammo for the weapons and use them any time.
+
+Create cooldown for each ammo type
+
+
+
+
+
+Build UI system
+	Need Exp bar
+	Health Bar(under player or bottom of screen)
+	Menu
+
+
+
+Build out the level.
+	What kind of style.... 
+
+
+
+Setting
+	

@@ -2,22 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour, IDamageable
+public class PlayerMovement : MonoBehaviour
 {
 
     [Header ("Movement")]
     [SerializeField] private float _speed = 5f;
     private Rigidbody _rb;
     private Camera _mainCamera;
-    
-
-    [Header("Firing")]
-    [SerializeField] private GameObject _projectilePrefab;
-    [SerializeField] private Transform _firePos;
-
-    public int Health { get; set; }
-    [SerializeField] private int _health;
-    private bool _isDead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -29,18 +20,11 @@ public class PlayerMovement : MonoBehaviour, IDamageable
         }
         _mainCamera = FindObjectOfType<Camera>();
 
-        Health = _health;
-    }
-
-    private void Update()
-    {
-        if(!_isDead)
-            Shoot();
     }
 
     void FixedUpdate()
     {
-        if(!_isDead)
+        if(!GameManager.Instance.IsDead())
             Movement();
     }
 
@@ -69,31 +53,4 @@ public class PlayerMovement : MonoBehaviour, IDamageable
         _rb.MovePosition(transform.position + offset);
     }
 
-    //player shotgun shot(triple shot)- done, Machinegun fire, Big Shot but slow
-
-    private void Shoot()
-    {
-        if(Input.GetMouseButtonDown(0))
-        {
-            Debug.Log("Shooting!!");
-            Instantiate(_projectilePrefab, _firePos.transform.position, _firePos.transform.rotation);
-        }
-    }
-
-    public void Damage(int damageAmount)
-    {
-        Debug.Log("I'm Hit!");
-        Health-= damageAmount;
-
-        
-        if (Health <= 0)
-        {
-            Debug.Log("I'm Dead!!");
-            //message gamemanager I am dead to stop them from attacking!
-            _isDead = true;
-            GameManager.Instance.PlayerHasDied(_isDead);
-            //maybe use shader to fade character away
-            Destroy(gameObject, 2f);
-        }
-    }
 }

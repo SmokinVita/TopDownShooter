@@ -6,6 +6,11 @@ public class CloseCombatEnemy : Enemy
 {
     private void Update()
     {
+        if (GameManager.Instance.IsDead())
+        {
+            return;
+        }
+
         if (Vector3.Distance(transform.position, _target.transform.position) < _distance)
             Attack();
     }

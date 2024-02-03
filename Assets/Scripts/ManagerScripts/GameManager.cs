@@ -12,7 +12,7 @@ public class GameManager : MonoSingleton<GameManager>
         _isDead = playState;
         Debug.Log("Player has Dead!");
     }
-    public bool isDead()
+    public bool IsDead()
     {
         return _isDead;
     }

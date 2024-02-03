@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
 
     [SerializeField] private float _speed = 5f;
+    [SerializeField] private int _dmgOutput = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,7 @@ public class Bullet : MonoBehaviour
         {
             
             Debug.Log("Hit something that is damageable");
-            damageable.Damage(2);
+            damageable.Damage(_dmgOutput);
             Destroy(gameObject);
         }
     }
