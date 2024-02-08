@@ -14,7 +14,7 @@ Create cooldown for each ammo type
 
 
 Build UI system
-	Need Exp bar
+	Need Exp bar(top of screen or bottom under health bar?)
 	Health Bar(under player or bottom of screen)
 	Menu
 

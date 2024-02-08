@@ -42,15 +42,21 @@ public class PlayerMovement : MonoBehaviour
             transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
         }
 
-
+        var matrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
         Vector3 movement = new Vector3(horizontal, 0, vertical);
-        movement *= _speed * Time.fixedDeltaTime;
 
-        Vector3 offset = transform.rotation * movement;
-        _rb.MovePosition(transform.position + offset);
+        movement *= _speed * Time.fixedDeltaTime;
+        var skewedInput = matrix.MultiplyPoint3x4(movement);
+
+        //Moves player towards mouse pos.
+        //Vector3 offset = transform.rotation * movement;
+        // _rb.MovePosition(transform.position + offset);
+
+        //Trying to move up and down in referance to scene.
+        _rb.MovePosition(transform.position + skewedInput);
     }
 
 }
