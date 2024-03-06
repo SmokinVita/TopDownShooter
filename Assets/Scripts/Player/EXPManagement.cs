@@ -8,6 +8,12 @@ public class EXPManagement : MonoBehaviour
     [SerializeField] private int _currentXP = 0;
     [SerializeField] private int _expNeededToLvl = 10;
 
+    private void Awake()
+    {
+        UIManager.Instance.ExpBar(_currentXP);
+        UIManager.Instance.UpdateMaxExp(_expNeededToLvl);
+    }
+
     public void AddExp(int xpAmount)
     {
         _currentXP += xpAmount;
@@ -16,6 +22,9 @@ public class EXPManagement : MonoBehaviour
             _currentXP -= _expNeededToLvl;
             _currentLvl++;
             _expNeededToLvl *= 2;
+            UIManager.Instance.UpdateMaxExp(_expNeededToLvl);
         }
+
+        UIManager.Instance.ExpBar(_currentXP);
     }
 }

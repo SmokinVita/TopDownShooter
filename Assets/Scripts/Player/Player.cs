@@ -18,6 +18,8 @@ public class Player : MonoBehaviour, IDamageable
     void Start()
     {
         Health = _health;
+        UIManager.Instance.UpdateMaxHealth(Health);
+        UIManager.Instance.HealthBar(Health);
     }
 
     private void Update()
@@ -42,6 +44,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         Debug.Log("I'm Hit!");
         Health -= damageAmount;
+        UIManager.Instance.HealthBar(Health);
 
 
         if (Health <= 0)

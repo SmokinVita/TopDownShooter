@@ -24,8 +24,14 @@ public class SpawnManager : MonoSingleton<SpawnManager>
     {
         while (GameManager.Instance.IsDead() == false)
         {
+            //Spawning enemy around 20m away from player's pos.
             float xSpawn = Random.Range(_player.transform.position.x - 20, _player.transform.position.x + 20);
             float zSpawn = Random.Range(_player.transform.position.z - 20, _player.transform.position.z + 20);
+
+            //Trying to Spawn outside of camera view.
+            //float xSpawn = Camera.main.pixelHeight;
+            //float zSpawn = Camera.main.pixelWidth;
+
             _spawnPoint = new Vector3(xSpawn, 0,  zSpawn); ;
             _spawn = Random.Range(0, _enemies.Length);
             yield return new WaitForSeconds(2f);
