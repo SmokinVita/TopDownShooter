@@ -23,6 +23,7 @@ public class EXPManagement : MonoBehaviour
             _currentLvl++;
             _expNeededToLvl *= 2;
             UIManager.Instance.UpdateMaxExp(_expNeededToLvl);
+            UIManager.Instance.OpenUpgradeMenu();
         }
 
         UIManager.Instance.ExpBar(_currentXP);
