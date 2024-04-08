@@ -56,6 +56,14 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
+    public void AddUpgrade(string upgradeName)
+    {
+        Debug.Log("We selected " + upgradeName);
+        //call the correct method to unlock upgrade
+        //switch
+
+    }
+
     private IEnumerator ShootCoolDownRoutine()
     {
         yield return new WaitForSeconds(1);

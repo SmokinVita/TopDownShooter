@@ -10,16 +10,10 @@ public class UpgradeHandler : MonoBehaviour
 
     //need to pick 3 and display them
 
-
-    // Start is called before the first frame update
-    void Start()
+    public UpgradeScriptableObject PickRandomUpgrade()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        int random = Random.Range(0, _upgradeScriptableObjects.Count);
+        //Debug.Log($"We Got {_upgradeScriptableObjects[random].name}");
+        return _upgradeScriptableObjects[random];
     }
 }
