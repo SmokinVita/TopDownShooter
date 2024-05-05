@@ -38,7 +38,7 @@ public class UIManager : MonoSingleton<UIManager>
         _upgradeMenu.SetActive(true);
         //StartCoroutine(DisplayOptions());
         DisplayOptions();
-        
+
     }
 
     //Get scriptable object upgrade and add to one button. 
@@ -49,14 +49,29 @@ public class UIManager : MonoSingleton<UIManager>
 
         for (int i = 0; i < 3; i++)
         {
-            Debug.Log(i);
             UpgradeScriptableObject selectedUpgrade = _upgradeHandler.PickRandomUpgrade();
-            
+            foreach (var upgrade in _buttons)
+            {
+                if (selectedUpgrade.name == upgrade.name)
+                {
+                    selectedUpgrade = _upgradeHandler.PickRandomUpgrade();
+                }
+            }
+            _buttons[i].name = selectedUpgrade.name;
+
             _buttons[i].onClick.AddListener(() => { _player.AddUpgrade(selectedUpgrade.upgradeName); });
             _buttons[i].transform.GetChild(1).GetComponentInChildren<Image>().sprite = selectedUpgrade.upgradeImage;
             _buttons[i].GetComponentInChildren<TMP_Text>().SetText(selectedUpgrade.upgradeName);
 
-        }    
+        }
         GameManager.Instance.PauseGame(true);
+    }
+
+    public void RemoveListeners()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            _buttons[i].onClick.RemoveAllListeners();
+        }
     }
 }
