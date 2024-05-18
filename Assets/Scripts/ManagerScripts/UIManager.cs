@@ -11,6 +11,7 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] private GameObject _upgradeMenu;
     [SerializeField] private Button[] _buttons;
     [SerializeField] private UpgradeHandler _upgradeHandler;
+    [SerializeField] private List<UpgradeScriptableObject> _selectedUpgrade = new List<UpgradeScriptableObject>();
     [SerializeField] private Player _player;
 
     public void UpdateMaxHealth(float maxHealth)
@@ -47,31 +48,60 @@ public class UIManager : MonoSingleton<UIManager>
     private void DisplayOptions()
     {
 
-        for (int i = 0; i < 3; i++)
+        /*for (int i = 0; i < 3; i++)
         {
             UpgradeScriptableObject selectedUpgrade = _upgradeHandler.PickRandomUpgrade();
             foreach (var upgrade in _buttons)
             {
-                if (selectedUpgrade.name == upgrade.name)
+                if (upgrade.name == selectedUpgrade.name)
                 {
+                    Debug.Log($"Got the same name of {upgrade.name} and {selectedUpgrade.name}");
                     selectedUpgrade = _upgradeHandler.PickRandomUpgrade();
+                    Debug.Log($"Got the same name of {upgrade.name} and {selectedUpgrade.name}");
                 }
             }
-            _buttons[i].name = selectedUpgrade.name;
 
-            _buttons[i].onClick.AddListener(() => { _player.AddUpgrade(selectedUpgrade.upgradeName); });
-            _buttons[i].transform.GetChild(1).GetComponentInChildren<Image>().sprite = selectedUpgrade.upgradeImage;
-            _buttons[i].GetComponentInChildren<TMP_Text>().SetText(selectedUpgrade.upgradeName);
+        }*/
 
+        for (int i = 0; i < 3; i++)
+        {
+            _selectedUpgrade.Add(_upgradeHandler.PickRandomUpgrade());
         }
+
+        foreach (var item in _selectedUpgrade)
+        {
+            if (item.name == item.name)
+            {
+                //_selectedUpgrade.Remove(item);
+               //_selectedUpgrade.Add(_upgradeHandler.PickRandomUpgrade());
+            }
+        }
+
+        UpgradeImageUpdate();
         GameManager.Instance.PauseGame(true);
     }
 
-    public void RemoveListeners()
+    private void UpgradeImageUpdate()
     {
         for (int i = 0; i < 3; i++)
         {
-            _buttons[i].onClick.RemoveAllListeners();
+            {
+                UpgradeScriptableObject selectedUpgrade = _upgradeHandler.PickRandomUpgrade();
+                _buttons[i].name = selectedUpgrade.name;
+
+                _buttons[i].onClick.AddListener(() => { _player.AddUpgrade(selectedUpgrade.upgradeName); });
+                _buttons[i].transform.GetChild(1).GetComponentInChildren<Image>().sprite = selectedUpgrade.upgradeImage;
+                _buttons[i].GetComponentInChildren<TMP_Text>().SetText(selectedUpgrade.upgradeName);
+
+            }
+        }
+
+    }
+        public void RemoveListeners()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                _buttons[i].onClick.RemoveAllListeners();
+            }
         }
     }
-}
