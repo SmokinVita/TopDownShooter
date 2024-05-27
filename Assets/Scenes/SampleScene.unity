@@ -466,6 +466,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 09a47d297bb3b9844a39453729de5612, type: 2}
   - {fileID: 11400000, guid: 879a0e343fe665c4992eed564219bb2d, type: 2}
   - {fileID: 11400000, guid: 32d4f58976552a740baf50ed28de7b0b, type: 2}
+  - {fileID: 11400000, guid: 969557ad39b73c24896faff89ff7e2df, type: 2}
+  _useableObjects: []
+  _selectedSO: []
 --- !u!1 &208851542
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,6 +1007,7 @@ MonoBehaviour:
   - {fileID: 1580718005}
   - {fileID: 707941763}
   _upgradeHandler: {fileID: 196376578}
+  _selectedUpgrade: []
   _player: {fileID: 1592900452}
 --- !u!1 &613481444
 GameObject:
