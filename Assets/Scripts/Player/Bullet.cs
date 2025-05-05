@@ -7,10 +7,19 @@ public class Bullet : MonoBehaviour
 
     [SerializeField] private float _speed = 5f;
     [SerializeField] private int _dmgOutput = 2;
+    [SerializeField] private bool _isPlayersBullet;
+    private Player _player;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (_isPlayersBullet)
+        {
+            _player = FindAnyObjectByType<Player>();
+            if (_player == null)
+                Debug.Log("bullet Can't find player");
+        }
+
         Destroy(gameObject, 3f);
     }
 
@@ -25,8 +34,10 @@ public class Bullet : MonoBehaviour
         IDamageable damageable = other.GetComponent<IDamageable>();
         if (damageable != null )
         {
-            
-            Debug.Log("Hit something that is damageable");
+            if (_isPlayersBullet)
+            {
+                _dmgOutput = _player.BulletStr();
+            }
             damageable.Damage(_dmgOutput);
             Destroy(gameObject);
         }

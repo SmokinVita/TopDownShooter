@@ -13,10 +13,15 @@ public class RangedEnemy : Enemy
     [SerializeField] private float _attackCoolDown = 3f;
     private bool _canFire = true;
 
-    private void Update()
+    protected override void Update()
     {
-        if(GameManager.Instance.IsDead())
+        if (_gameManager.IsDead() || _isDead == true)
+        {
+            _agent.isStopped = true;
             return;
+        }
+
+        base.Update();
 
         if (Vector3.Distance(transform.position, _target.transform.position) < _distance && _canFire == true)
             Attack();
@@ -25,6 +30,7 @@ public class RangedEnemy : Enemy
     private void Attack()
     {
         Instantiate(_ammoPrefab, _firingPOS.transform.position, _firingPOS.transform.rotation);
+        _anim.SetTrigger("Attack");
         _canFire = false;
         StartCoroutine(FireCooldownRoutine());
     }

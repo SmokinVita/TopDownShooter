@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c3c60ad0e37cf4981202e5392e09e4, type: 3}
   m_Name: Attack
   m_EditorClassIdentifier: 
-  upgradeName: Attack UP!
+  upgradeName: Attack Speed
   upgradeImage: {fileID: 21300000, guid: 8ce525245bb67a047a175a9bdf0183be, type: 3}
   attackSpeed: 0
   healthUpgrade: 0

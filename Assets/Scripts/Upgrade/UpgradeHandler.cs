@@ -2,19 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeHandler : MonoBehaviour
+public class UpgradeHandler : MonoSingleton<UpgradeHandler>
 {
 
     //Need to keep hold of all the upgrades
     [SerializeField] private List<UpgradeScriptableObject> _upgradeScriptableObjects = new List<UpgradeScriptableObject>();
     [SerializeField] private List<UpgradeScriptableObject> _useableObjects = new List<UpgradeScriptableObject>();
     [SerializeField] private List<UpgradeScriptableObject> _selectedSO = new List<UpgradeScriptableObject>();
-    private int _currentIndex = -1;
+    private int _currentIndex = 0;
 
     //need to pick 3 and display them
 
-    private void Awake()
+    private void Start()
     {
+      
         ClearObjects();
     }
 
@@ -35,17 +36,31 @@ public class UpgradeHandler : MonoBehaviour
             }
         }*/
         _currentIndex++;
-        return _selectedSO[_currentIndex];
+        return _selectedSO[_currentIndex - 1 ];
     }
 
     public void ClearObjects()
     {
         _useableObjects.Clear();
         _selectedSO.Clear();
+        _currentIndex = 0;
 
         for (int i = 0; i < _upgradeScriptableObjects.Count; i++)
         {
             _useableObjects.Add(_upgradeScriptableObjects[i]);
+        }
+    }
+
+    public void MaxedOutSkill(string skillName)
+    {
+        for (int i = 0; i < _upgradeScriptableObjects.Count; i++)
+        {
+            if (_upgradeScriptableObjects[i].name == skillName)
+            {
+                _upgradeScriptableObjects.RemoveAt(i);
+                return;
+            }
+
         }
     }
 }

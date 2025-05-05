@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,8 +17,21 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T
         }
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        _instance = this as T;
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this as T;
+        }
+        Init();
+    }
+
+    public virtual void Init()
+    {
+        
     }
 }

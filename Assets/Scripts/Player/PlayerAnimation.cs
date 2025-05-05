@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Animator _anim;
+
     void Start()
     {
-        
+        _anim = GetComponent<Animator>();
+        if (_anim == null)
+            Debug.Log("Player animator is NULL!");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RunAnimation(float speed)
     {
-        
+        _anim.SetFloat("Speed", speed);
+    }
+
+    public void DeathAnimation()
+    {
+        _anim.SetTrigger("Death");
     }
 }

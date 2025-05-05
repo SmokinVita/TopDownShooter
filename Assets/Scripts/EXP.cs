@@ -12,7 +12,6 @@ public class EXP : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //Give player exp! Make them strong!!!!!
-            Debug.Log("Player has gained exp!");
             EXPManagement xp = other.GetComponent<EXPManagement>();
             if (xp != null)
             {

@@ -1,30 +1,19 @@
 6 enemies 3- range 3- close 2 Boss.
 	Set up enemy attack and death animations
+	6 enemies are done, need to work on Bosses. Add particle effects for Boss? Range enemy bullets need visual update
 
 
-?? card system for upgrades. ??
-
-upgrades to shotgun shot, rocket launcher.
-	could drop ammo for the weapons and use them any time.
-
-Create cooldown for each ammo type
+Upgrades 
+	Need to level up Triple and 
 
 
-
+	Update Boss Health, to weak right now.
 
 
 Build UI system
-	//Need Exp bar(top of screen or bottom under health bar?)
-	//Health Bar(under player or bottom of screen)
-	Time Counter?
-	Menu
-
-
-
-Build out the level.
-	What kind of style.... 
-
-
-
-Setting
+	//Need Exp bar(top of screen or bottom under health bar?) - Done, need better look but is in place
+	//Health Bar(under player or bottom of screen) - Done, Better UI needed.
+	//Time Counter?
+	//Menu - inprogress
+	//Pause menu - inprogress but needs the strength of upgrades. - Need better images for Upgrades, Need better visuals
 	
