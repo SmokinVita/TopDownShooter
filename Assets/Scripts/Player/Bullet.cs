@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
                 Debug.Log("bullet Can't find player");
         }
 
-        Destroy(gameObject, 3f);
+        DestroyObject();
     }
 
     // Update is called once per frame
@@ -39,7 +39,19 @@ public class Bullet : MonoBehaviour
                 _dmgOutput = _player.BulletStr();
             }
             damageable.Damage(_dmgOutput);
-            Destroy(gameObject);
+            DestroyObject();
+        }
+    }
+
+    private void DestroyObject()
+    {
+        if (transform.parent != null)
+        {
+            Destroy(this.gameObject.transform.parent.gameObject, 3f);
+        }
+        else
+        {
+            Destroy(this.gameObject, 3f);
         }
     }
 }

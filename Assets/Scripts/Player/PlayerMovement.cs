@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     private Camera _mainCamera;
     [SerializeField] private Transform _playerCharacter;
 
+    public bool _isPlayerGrabbed = false;
+
     private GameManager _gameManager;
     private PlayerAnimation _playerAnim;
 
@@ -35,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(!_gameManager.IsDead())
+        if(!_gameManager.IsDead() && _isPlayerGrabbed != true)
             Movement();
     }
 
@@ -79,6 +81,12 @@ public class PlayerMovement : MonoBehaviour
     public void IncreaseSpd()
     {
         _speed += .3f;
+    }
+
+    public void PlayerGetsGrabbed(bool isGrabbed)
+    {
+        _isPlayerGrabbed = isGrabbed;
+        Debug.Log("Grabber tried to grab player");
     }
 
 }

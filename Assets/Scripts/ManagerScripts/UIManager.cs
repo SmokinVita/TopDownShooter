@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoSingleton<UIManager>
@@ -18,9 +19,15 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] private GameObject _gameoverMenu;
     [SerializeField] private TMP_Text _timerDisplay;
 
+    public bool _isGameRdy = false;
+    [SerializeField] private CanvasGroup _fadePanel;
+    [SerializeField] private float _fadeSpeed = 2f;
+    public float _currentFadeTime = 0.0f;
+
     private void Start()
     {
         _gameManager = FindObjectOfType<GameManager>();
+        StartGame();
     }
 
     public void UpdateMaxHealth(float maxHealth)
@@ -112,5 +119,30 @@ public class UIManager : MonoSingleton<UIManager>
         float seconds = Mathf.FloorToInt(timer % 60);
         float minutes = Mathf.FloorToInt((timer / 60) % 60);
         _timerDisplay.SetText($"{minutes}:{seconds}");
+    }
+
+    public void StartGame()
+    {
+        StartCoroutine(Fade());
+        Debug.Log("Fade is called");
+    }
+
+    IEnumerator Fade()
+    {
+        while (_fadePanel.alpha > 0)
+        {
+            Debug.Log("Called Fade IEnumberator");
+            _fadePanel.alpha = Mathf.SmoothStep(1, 0, _currentFadeTime / _fadeSpeed);
+            _currentFadeTime += Time.deltaTime;
+            yield return null;
+        }
+        _isGameRdy = true;
+        SpawnManager.Instance.StartSpawning();
+        yield return null;
+    }
+
+    public bool StartTimer()
+    {
+        return _isGameRdy;
     }
 }

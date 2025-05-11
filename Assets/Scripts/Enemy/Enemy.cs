@@ -24,7 +24,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         _gameManager = FindObjectOfType<GameManager>();
 

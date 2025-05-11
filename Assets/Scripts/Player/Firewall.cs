@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 public class Firewall : MonoBehaviour
@@ -8,24 +5,27 @@ public class Firewall : MonoBehaviour
 
     [SerializeField] private float _cooldownHit = 3f;
     private float _timer;
+    private IDamageable _damageable;
 
     private void OnTriggerEnter(Collider other)
     {
-        IDamageable damageable = other.GetComponent<IDamageable>();
+        _damageable = other.GetComponent<IDamageable>();
     }
 
-    private void OnTriggerEnterStay(Collider other)
+    private void Update()
     {
-        IDamageable damageable = other.GetComponent<IDamageable>();
-        Debug.Log($"{other.name} is in trigger");
-        if (damageable != null)
+        if (Time.time > _timer && _damageable != null)
         {
-            if (Time.time > _timer)
-            {
-                _timer = Time.time + _cooldownHit;
-                damageable.Damage(1);
-                Debug.Log("Firewall HIT!");
-            }
+            _timer = Time.time + _cooldownHit;
+            _damageable.Damage(1);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            _damageable = null;
         }
     }
 }

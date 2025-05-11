@@ -36,6 +36,7 @@ public class Player : MonoBehaviour, IDamageable
 
     [SerializeField] private GameObject _ammoHolder;
 
+
     public int Health { get; set; }
     [SerializeField] private int _health;
     private bool _isDead = false;
@@ -74,7 +75,6 @@ public class Player : MonoBehaviour, IDamageable
         if (!_isDead || _gameManager.IsGameActive() == true)
         {
             Shoot();
-            
         }
     }
 

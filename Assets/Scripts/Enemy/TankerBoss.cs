@@ -8,7 +8,7 @@ public class TankerBoss : Enemy
     private bool _canAttack = true;
     private int _maxAmountOfAttacks = 2;
     private bool _called50 = false;
-    private bool _called20 = false;
+    public bool _called20 = false;
 
     protected override void Update()
     {
@@ -44,6 +44,12 @@ public class TankerBoss : Enemy
         _canAttack = false;
         StartCoroutine(AttackCoolDownRoutine());
     }
+    //start attack cool down.
+    private IEnumerator AttackCoolDownRoutine()
+    {
+        yield return new WaitForSeconds(_attackCoolDown);
+        _canAttack = true;
+    }
 
     private void SpawnEnemies()
     {
@@ -52,16 +58,18 @@ public class TankerBoss : Enemy
         float distance = Vector3.Distance(gameObject.transform.position, _target.transform.forward);
         if (distance <= 5f)
         {
+            _anim.SetTrigger("JumpSlam");
             Debug.Log("I am close to Player!");
-            SpawnManager.Instance.SpawnEnemiesAroundPlayer();
+            //SpawnManager.Instance.SpawnEnemiesAroundPlayer();
+            StartCoroutine(SpawnEnmiesDelayRoutine());
         }
     }
 
-    //start attack cool down.
-    private IEnumerator AttackCoolDownRoutine()
+    IEnumerator SpawnEnmiesDelayRoutine()
     {
-        yield return new WaitForSeconds(_attackCoolDown);
-        _canAttack = true;
+        Debug.Log("SpawningEnemies Around Player");
+        yield return new WaitForSeconds(.20f);
+        SpawnManager.Instance.SpawnEnemiesAroundPlayer();
     }
 
     public override void Damage(int damageAmount)
