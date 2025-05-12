@@ -986,13 +986,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 928081574}
   m_HandleRect: {fileID: 1984593572}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: -80
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 821366757}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: SetSFXVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &498700642
 GameObject:
   m_ObjectHideFlags: 0
@@ -2099,6 +2111,9 @@ MonoBehaviour:
   _masterSource: {fileID: 821366755}
   _musicFadeSpeed: 2
   _currentMasterVolume: 0
+  _masterMixer: {fileID: 24100000, guid: 976476f75c04f1e4ea46b370fe8deea1, type: 2}
+  _bgmMixer: {fileID: 24100000, guid: 976476f75c04f1e4ea46b370fe8deea1, type: 2}
+  _sfxMixer: {fileID: 24100000, guid: 976476f75c04f1e4ea46b370fe8deea1, type: 2}
 --- !u!1 &835192279
 GameObject:
   m_ObjectHideFlags: 0
@@ -4448,13 +4463,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 1704545984}
   m_HandleRect: {fileID: 694506381}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 0
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 821366757}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: SetBGMVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1763939222
 GameObject:
   m_ObjectHideFlags: 0
@@ -4737,7 +4764,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1692954436}
+      - m_Target: {fileID: 1006766370}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -4747,7 +4774,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1855043488
 MonoBehaviour:
@@ -4870,13 +4897,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 1042784588}
   m_HandleRect: {fileID: 48642478}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: -80
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 821366757}
+        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+        m_MethodName: SetMaserVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1913197146
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private float _currentMasterVolume;
     private float _fadeTime = 0.0f;
 
+    //holder's for Master, BGM, and SFX tracks
+    [SerializeField] private AudioMixer _masterMixer, _bgmMixer, _sfxMixer;
+
     public void StartFade()
     {
         StartCoroutine(FadeRoutine());
@@ -24,5 +27,23 @@ public class AudioManager : MonoBehaviour
             _currentMasterVolume -= Time.deltaTime;
             yield return null;
         }
+    }
+
+    public void SetMaserVolume( float sliderValue)
+    {
+        //grab 
+        _masterMixer.SetFloat("MasterVolume", sliderValue);
+    }
+
+    public void SetBGMVolume(float sliderValue)
+    {
+        //set BGM Mixer float to Slider info!
+        _masterMixer.SetFloat("BGMVolume", sliderValue);
+    }
+
+    public void SetSFXVolume(float sliderValue)
+    {
+        //sfx mixer
+        _masterMixer.SetFloat("SFXVolume", sliderValue);
     }
 }
