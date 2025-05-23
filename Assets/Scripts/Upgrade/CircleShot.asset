@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CircleShot
   m_EditorClassIdentifier: 
   upgradeName: CircleShot
-  upgradeImage: {fileID: 21300000, guid: 774acb1f44eae1e4d833a0c849e0b6eb, type: 3}
+  upgradeImage: {fileID: 21300000, guid: 3207646fdc96d2b4d9afd0be220d35d9, type: 3}
   attackSpeed: 0
   healthUpgrade: 0
   fireSpeed: 0

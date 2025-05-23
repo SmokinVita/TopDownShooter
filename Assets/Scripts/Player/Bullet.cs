@@ -9,6 +9,9 @@ public class Bullet : MonoBehaviour
     [SerializeField] private int _dmgOutput = 2;
     [SerializeField] private bool _isPlayersBullet;
     private Player _player;
+    private bool _hitSomething;
+    [SerializeField] private GameObject _muzzlePrefab;
+    [SerializeField] private GameObject _hitPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +23,21 @@ public class Bullet : MonoBehaviour
                 Debug.Log("bullet Can't find player");
         }
 
-        DestroyObject();
+        if (_muzzlePrefab != null)
+        {
+            var muzzleVFX = Instantiate(_muzzlePrefab, transform.position, Quaternion.identity);
+            muzzleVFX.transform.forward = gameObject.transform.position;
+            var ps = muzzleVFX.GetComponent<ParticleSystem>();
+            if (ps != null)
+                Destroy(muzzleVFX, ps.main.duration);
+            else
+            {
+                var psChild = muzzleVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
+                Destroy(muzzleVFX, psChild.main.duration);
+            }
+        }
+
+        Invoke("DestroyObject", 3f);
     }
 
     // Update is called once per frame
@@ -39,7 +56,9 @@ public class Bullet : MonoBehaviour
                 _dmgOutput = _player.BulletStr();
             }
             damageable.Damage(_dmgOutput);
-            DestroyObject();
+            GameObject hitfab = Instantiate(_hitPrefab, other.transform.position, Quaternion.identity);
+            hitfab.transform.parent = other.transform;
+            Destroy(gameObject);
         }
     }
 
@@ -47,11 +66,11 @@ public class Bullet : MonoBehaviour
     {
         if (transform.parent != null)
         {
-            Destroy(this.gameObject.transform.parent.gameObject, 3f);
+            Destroy(this.gameObject.transform.parent.gameObject);
         }
         else
         {
-            Destroy(this.gameObject, 3f);
+            Destroy(this.gameObject);
         }
     }
 }

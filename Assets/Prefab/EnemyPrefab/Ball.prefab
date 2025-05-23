@@ -157,8 +157,10 @@ MonoBehaviour:
   _target: {fileID: 0}
   _lootPrefab: {fileID: 2450947607268511239, guid: 74155173a0902be45a477910b6182c72, type: 3}
   _distance: 5
+  _isDead: 0
+  _collider: {fileID: 0}
   _health: 5
-  _ammoPrefab: {fileID: 3401124366919461262, guid: 58074903ac4e9654cb3493582449840c, type: 3}
+  _ammoPrefab: {fileID: 1607489160101874, guid: 4dbce21fc9d55f44e9cea891c8c11e79, type: 3}
   _firingPOS: {fileID: 1563169145357152251}
   _attackCoolDown: 3
 --- !u!195 &-6947662269497491762
@@ -179,8 +181,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: -0.39
+  m_Height: 1.15
+  m_BaseOffset: -0.2
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!54 &-3363493757997884295

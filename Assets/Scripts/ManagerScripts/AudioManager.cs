@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : MonoSingleton<AudioManager>
 {
     [SerializeField] private AudioSource _masterSource;
     [SerializeField] private float _musicFadeSpeed = 2f;
@@ -11,7 +11,8 @@ public class AudioManager : MonoBehaviour
     private float _fadeTime = 0.0f;
 
     //holder's for Master, BGM, and SFX tracks
-    [SerializeField] private AudioMixer _masterMixer, _bgmMixer, _sfxMixer;
+    [SerializeField] private AudioMixer _masterMixer;
+    [SerializeField] private AudioSource _sfxSource;
 
     public void StartFade()
     {
@@ -46,4 +47,12 @@ public class AudioManager : MonoBehaviour
         //sfx mixer
         _masterMixer.SetFloat("SFXVolume", sliderValue);
     }
+
+    public void PlaySFX(AudioClip sfxClip)
+    {
+        _sfxSource.clip = sfxClip;
+        _sfxSource.Play();
+    }
+
+    
 }

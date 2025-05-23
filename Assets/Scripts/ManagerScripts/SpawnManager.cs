@@ -7,6 +7,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
 {
     private GameManager _gameManger;
     [SerializeField] private GameObject[] _enemies;
+    [SerializeField] private GameObject[] _spawnPoints;
     [SerializeField] private Vector3 _spawnPoint;
     private int _spawn;
 
@@ -40,6 +41,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
 
         InvokeRepeating("SpawnTanker", _TankerSpawnTimer, _TankerSpawnTimer);
         InvokeRepeating("SpawnGripper", _GripperSpawnTimer, _GripperSpawnTimer);
+        Invoke("StartSpawning", 2f);
 
     }
 
@@ -53,15 +55,16 @@ public class SpawnManager : MonoSingleton<SpawnManager>
         while (_gameManger.IsDead() == false)
         {
             //Spawning enemy around 20m away from player's pos.
-            float xSpawn = Random.Range(_player.transform.position.x - 30, _player.transform.position.x + 30);
-            float zSpawn = Random.Range(_player.transform.position.z - 30, _player.transform.position.z + 30);
+            //float xSpawn = Random.Range(_player.transform.position.x - 30, _player.transform.position.x + 30);
+            //float zSpawn = Random.Range(_player.transform.position.z - 30, _player.transform.position.z + 30);
+            int randomSpawnPoint = Random.Range(0, _spawnPoints.Length);
 
             //add 4 spawnpoints on player and randomly pick on to spawn at.
 
-            _spawnPoint = new Vector3(xSpawn, 0, zSpawn);
+            //_spawnPoint = new Vector3(xSpawn, 0, zSpawn);
             _spawn = Random.Range(0, _enemies.Length);
             yield return new WaitForSeconds(2f);
-            GameObject enemies = Instantiate(_enemies[_spawn], _spawnPoint, Quaternion.identity);
+            GameObject enemies = Instantiate(_enemies[_spawn], _spawnPoints[randomSpawnPoint].transform.position, Quaternion.identity);
             enemies.transform.parent = _enemyHolder.transform;
         }
     }

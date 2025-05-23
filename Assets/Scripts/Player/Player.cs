@@ -12,6 +12,7 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private GameObject _projectilePrefab;
     [SerializeField] private Transform _firePos;
     private bool _canShoot = true;
+    [SerializeField] private CameraShake _cameraShake;
 
     [Header("OrbUpgrade")]
     [SerializeField] private GameObject[] _orbUpgrade;
@@ -63,6 +64,10 @@ public class Player : MonoBehaviour, IDamageable
         if (_pauseMenuUI == null)
             Debug.Log("Can't Find PauseMenuUI");
 
+        _cameraShake = FindObjectOfType<CameraShake>();
+        if (_cameraShake == null)
+            Debug.Log("CameraShake is NULL!");
+
         Health = _health;
         UIManager.Instance.UpdateMaxHealth(Health);
         UIManager.Instance.HealthBar(Health);
@@ -72,6 +77,11 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Heal();
+        }
+
         if (!_isDead || _gameManager.IsGameActive() == true)
         {
             Shoot();
@@ -84,6 +94,7 @@ public class Player : MonoBehaviour, IDamageable
         if (Input.GetMouseButtonDown(0) && _canShoot == true)
         {
             Instantiate(_projectilePrefab, _firePos.transform.position, _firePos.transform.rotation);
+            _cameraShake.CallForShake();
             _canShoot = false;
             StartCoroutine(ShootCoolDownRoutine());
         }
@@ -133,6 +144,10 @@ public class Player : MonoBehaviour, IDamageable
             case "BulletStr":
                 BulletStrUpgrade();
                 break;
+            case "Heal":
+                Heal();
+                break;
+               
         }
 
         UIManager.Instance.RemoveListeners();
@@ -219,5 +234,17 @@ public class Player : MonoBehaviour, IDamageable
     {
         yield return new WaitForSeconds(_shootCooldown);
         _canShoot = true;
+    }
+
+    private void Heal()
+    {
+        int healAmount = Random.Range(20, 51);
+        Health += healAmount;
+        if (Health > _health)
+        {
+            Health = _health;
+        }
+
+        UIManager.Instance.HealthBar(Health);
     }
 }

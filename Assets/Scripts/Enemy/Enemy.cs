@@ -22,7 +22,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     public int Health { get; set; }
 
 
-
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -98,7 +97,12 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     public virtual void Damage(int damageAmount)
     {
+        
+
         Health -= damageAmount;
+        if (_anim == null)
+            return;
+
         _anim.SetTrigger("Hit");
         if (Health <= 0 && _isDead != true)
         {

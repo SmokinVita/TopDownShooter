@@ -9,6 +9,11 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private float _fadeSpeed;
     public float _currentFadeTime = 0.0f;
 
+
+    public float _maxNumber = 100;
+    public float _minNumber = 0;
+    public float _percentage;
+
     public void StartGame()
     {
         StartCoroutine(Fade());
@@ -24,6 +29,16 @@ public class MainMenu : MonoBehaviour
         }
         SceneManager.LoadScene(1);
         yield return null;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            _percentage = _minNumber / _maxNumber * 100;
+
+            Debug.Log(_percentage.ToString());
+        }
     }
 
 

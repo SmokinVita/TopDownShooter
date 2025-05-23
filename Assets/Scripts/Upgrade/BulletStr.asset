@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BulletStr
   m_EditorClassIdentifier: 
   upgradeName: BulletStr
-  upgradeImage: {fileID: 0}
+  upgradeImage: {fileID: 21300000, guid: 8e214550388792943ad50c9944d00c43, type: 3}
   attackSpeed: 0
   healthUpgrade: 0
   fireSpeed: 0
