@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -21,12 +19,15 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         if(_rb == null )
-        {
             Debug.Log("Rigidbody is Null on Player");
-        }
+
         _mainCamera = FindObjectOfType<Camera>();
+        if(_mainCamera == null ) 
+            Debug.Log("Camera is NULL!");
 
         _gameManager = FindObjectOfType<GameManager>();
+        if (_gameManager == null)
+            Debug.Log("GameManager is NULL!");
 
         _playerAnim = GetComponentInChildren<PlayerAnimation>();
         if (_playerAnim == null)
@@ -75,7 +76,8 @@ public class PlayerMovement : MonoBehaviour
         //Trying to move up and down in referance to scene.
         _rb.MovePosition(transform.position + skewedInput);
         float currentSpeed = _rb.velocity.magnitude;
-        _playerAnim.RunAnimation(vertical);
+        _playerAnim.RunAnimation(movement.normalized.magnitude);
+        
     }
 
     public void IncreaseSpd()
@@ -86,7 +88,6 @@ public class PlayerMovement : MonoBehaviour
     public void PlayerGetsGrabbed(bool isGrabbed)
     {
         _isPlayerGrabbed = isGrabbed;
-        Debug.Log("Grabber tried to grab player");
     }
 
 }

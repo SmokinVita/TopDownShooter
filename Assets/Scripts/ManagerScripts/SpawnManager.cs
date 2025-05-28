@@ -27,9 +27,14 @@ public class SpawnManager : MonoSingleton<SpawnManager>
     [SerializeField] private GameObject _enemyToSpawnPrefab;
     [SerializeField] private float radius = 10f;
 
+    [Header("Circuit Board Items!")]
+    [SerializeField] private GameObject[] _circuitComponets;
+
 
     private void Start()
     {
+        SpawnRandomCircuitComponents();
+
         _player = FindObjectOfType<PlayerMovement>();
         if (_player == null)
             Debug.Log("Can't find PLAYER!");
@@ -45,6 +50,16 @@ public class SpawnManager : MonoSingleton<SpawnManager>
 
     }
 
+    private void SpawnRandomCircuitComponents()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            var pos = new Vector3(Random.Range(-130, 120), -1.09f, Random.Range(-190, 60));
+            Instantiate(_circuitComponets[Random.Range(0, _circuitComponets.Length)], pos, transform.rotation = new Quaternion(transform.rotation.x, Random.Range(0, 360), transform.rotation.z, transform.rotation.w));
+        }
+        
+    }
+
     public void StartSpawning()
     {
         StartCoroutine(SpawnMonsters());
@@ -54,14 +69,7 @@ public class SpawnManager : MonoSingleton<SpawnManager>
     {
         while (_gameManger.IsDead() == false)
         {
-            //Spawning enemy around 20m away from player's pos.
-            //float xSpawn = Random.Range(_player.transform.position.x - 30, _player.transform.position.x + 30);
-            //float zSpawn = Random.Range(_player.transform.position.z - 30, _player.transform.position.z + 30);
             int randomSpawnPoint = Random.Range(0, _spawnPoints.Length);
-
-            //add 4 spawnpoints on player and randomly pick on to spawn at.
-
-            //_spawnPoint = new Vector3(xSpawn, 0, zSpawn);
             _spawn = Random.Range(0, _enemies.Length);
             yield return new WaitForSeconds(2f);
             GameObject enemies = Instantiate(_enemies[_spawn], _spawnPoints[randomSpawnPoint].transform.position, Quaternion.identity);

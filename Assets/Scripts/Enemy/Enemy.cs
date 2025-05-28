@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -106,7 +104,9 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         _anim.SetTrigger("Hit");
         if (Health <= 0 && _isDead != true)
         {
+
             _collider.enabled = false;
+
             Instantiate(_lootPrefab, new Vector3(transform.position.x, 1.5f, transform.position.z), Quaternion.identity);
             _isDead = true;
             _anim.SetBool("HasDied", true);

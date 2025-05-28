@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Gripper : Enemy
@@ -30,7 +29,6 @@ public class Gripper : Enemy
         //if cooldown is good attack, call attack!
         if (Vector3.Distance(transform.position, _target.transform.position) < _distance && _canAttack == true)
         {
-            Debug.Log("attacking");
             Attack();
         }
     }
@@ -57,7 +55,6 @@ public class Gripper : Enemy
             case 3:
                 _anim.SetTrigger("Grab");
                 _attack.IsGrabbing(true);
-                Debug.Log("Trying to grab player");
                 break;
         }
         _canAttack = false;

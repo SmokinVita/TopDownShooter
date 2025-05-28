@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -12,7 +11,20 @@ public class AudioManager : MonoSingleton<AudioManager>
 
     //holder's for Master, BGM, and SFX tracks
     [SerializeField] private AudioMixer _masterMixer;
+    private float _masterVolume, _bgmVolume, _sfxVolume;
     [SerializeField] private AudioSource _sfxSource;
+
+    private void Start()
+    {
+        _masterMixer.GetFloat("MasterVolume", out _masterVolume);
+        _masterMixer.GetFloat("BGMVolume", out _bgmVolume);
+        _masterMixer.GetFloat("SFXVolume", out _sfxVolume);
+
+        if (UIManager.Instance == null)
+            return;
+
+        UIManager.Instance.SetSliders(_masterVolume, _bgmVolume, _sfxVolume);
+    }
 
     public void StartFade()
     {
@@ -30,10 +42,11 @@ public class AudioManager : MonoSingleton<AudioManager>
         }
     }
 
-    public void SetMaserVolume( float sliderValue)
+    public void SetMaserVolume(float sliderValue)
     {
         //grab 
         _masterMixer.SetFloat("MasterVolume", sliderValue);
+
     }
 
     public void SetBGMVolume(float sliderValue)
@@ -48,11 +61,13 @@ public class AudioManager : MonoSingleton<AudioManager>
         _masterMixer.SetFloat("SFXVolume", sliderValue);
     }
 
-    public void PlaySFX(AudioClip sfxClip)
+    public void SetSFX(AudioClip sfxClip)
     {
         _sfxSource.clip = sfxClip;
-        _sfxSource.Play();
     }
 
-    
+    public void PlaySFX()
+    {
+        _sfxSource.Play();
+    }
 }

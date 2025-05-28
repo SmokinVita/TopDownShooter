@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RangedEnemy : Enemy
@@ -15,16 +13,13 @@ public class RangedEnemy : Enemy
 
     protected override void Update()
     {
-        if (_gameManager.IsDead() || _isDead == true)
-        {
-            _agent.isStopped = true;
-            return;
-        }
 
         base.Update();
 
-        if (Vector3.Distance(transform.position, _target.transform.position) < _distance && _canFire == true)
+        if (Vector3.Distance(transform.position, _target.transform.position) < _distance && _canFire == true && _isDead == false)
             Attack();
+
+
     }
 
     private void Attack()

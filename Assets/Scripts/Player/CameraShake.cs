@@ -19,7 +19,6 @@ public class CameraShake : MonoBehaviour
     {
         //StartCoroutine(ShakeCameraRoutine());
         _camera.GenerateImpulse();
-        Debug.Log("Called for the Shake");
     }
 
     IEnumerator ShakeCameraRoutine()

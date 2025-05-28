@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TankerBoss : Enemy
@@ -59,7 +58,6 @@ public class TankerBoss : Enemy
         if (distance <= 5f)
         {
             _anim.SetTrigger("JumpSlam");
-            Debug.Log("I am close to Player!");
             //SpawnManager.Instance.SpawnEnemiesAroundPlayer();
             StartCoroutine(SpawnEnmiesDelayRoutine());
         }
@@ -67,7 +65,6 @@ public class TankerBoss : Enemy
 
     IEnumerator SpawnEnmiesDelayRoutine()
     {
-        Debug.Log("SpawningEnemies Around Player");
         yield return new WaitForSeconds(.20f);
         SpawnManager.Instance.SpawnEnemiesAroundPlayer();
     }

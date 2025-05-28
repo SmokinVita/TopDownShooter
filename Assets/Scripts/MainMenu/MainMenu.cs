@@ -23,7 +23,7 @@ public class MainMenu : MonoBehaviour
     {
         while (_fadePanel.alpha < 1)
         {
-            _fadePanel.alpha =Mathf.SmoothStep(0,1, _currentFadeTime / _fadeSpeed);
+            _fadePanel.alpha = Mathf.SmoothStep(0, 1, _currentFadeTime / _fadeSpeed);
             _currentFadeTime += Time.deltaTime;
             yield return null;
         }

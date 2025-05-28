@@ -35,7 +35,6 @@ public class CloseCombatEnemy : Enemy
         StartCoroutine(AttackCooldownRoutine());
         _attackCollider.enabled = false;
 
-        Debug.Log("Attacking!");
     }
 
     IEnumerator AttackCooldownRoutine()

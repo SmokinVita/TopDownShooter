@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoSingleton<UIManager>
@@ -31,6 +29,10 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] private float _fadeSpeed = 2f;
     public float _currentFadeTime = 0.0f;
 
+    [SerializeField] private Slider _masterVolumeSlider;
+    [SerializeField] private Slider _bgmVolumeSlider;
+    [SerializeField] private Slider _sfxVolumeSlider;
+
     private void Start()
     {
         _gameManager = FindObjectOfType<GameManager>();
@@ -41,7 +43,6 @@ public class UIManager : MonoSingleton<UIManager>
     {
         if (_hurtOverlay.color.a > 0)
         {
-            Debug.Log("Called HurtOverLay");
             _hurtDuration += Time.deltaTime;
             if (_hurtDuration > _hurtDurationTimer)
             {
@@ -77,9 +78,7 @@ public class UIManager : MonoSingleton<UIManager>
     {
         //_expBarSlider.value = exp;
         float percentage = exp / maxExpNeeded * 100;
-        Debug.Log($"Percentage{percentage}, currentXP: {exp}, Needed to lvl up: {maxExpNeeded}");
         _expPercentage.SetText(percentage.ToString());
-        Debug.Log(exp);
     }
 
     public void OpenUpgradeMenu()
@@ -113,27 +112,12 @@ public class UIManager : MonoSingleton<UIManager>
             _buttons[i].GetComponentInChildren<TMP_Text>().SetText(_selectedUpgrade.upgradeName);
         }
 
-       // UpgradeImageUpdate();
+        // UpgradeImageUpdate();
         _gameManager.PauseGame(true);
 
         _upgradeHandler.ClearObjects();
     }
 
-   /* private void UpgradeImageUpdate()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            {
-                
-                _buttons[i].name = _selectedUpgrade[i].upgradeName;
-                Debug.Log($"Button{i} got {_selectedUpgrade[i].upgradeName}");
-                _buttons[i].onClick.AddListener(() => { _player.AddUpgrade(_selectedUpgrade[i].name); });
-                _buttons[i].transform.GetChild(1).GetComponentInChildren<Image>().sprite = _selectedUpgrade[i].upgradeImage;
-                _buttons[i].GetComponentInChildren<TMP_Text>().SetText(_selectedUpgrade[i].upgradeName);
-                
-            }
-        }
-    }*/
 
     public void RemoveListeners()
     {
@@ -160,7 +144,7 @@ public class UIManager : MonoSingleton<UIManager>
     {
         while (_fadePanel.alpha > 0)
         {
-            _fadePanel.alpha = Mathf.SmoothStep(1, 0, _currentFadeTime * _fadeSpeed);
+            _fadePanel.alpha = Mathf.SmoothStep(1, 0, _currentFadeTime / _fadeSpeed);
             _currentFadeTime += Time.deltaTime;
             yield return null;
         }
@@ -171,5 +155,12 @@ public class UIManager : MonoSingleton<UIManager>
     public bool StartTimer()
     {
         return _isGameRdy;
+    }
+
+    public void SetSliders(float masterVolume, float bgmVolume, float sfxVolume)
+    {
+        _masterVolumeSlider.value = masterVolume;
+        _bgmVolumeSlider.value = bgmVolume;
+        _sfxVolumeSlider.value = sfxVolume;
     }
 }

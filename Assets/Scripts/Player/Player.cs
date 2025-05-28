@@ -1,8 +1,4 @@
-using Cinemachine;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageable
@@ -13,6 +9,8 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private Transform _firePos;
     private bool _canShoot = true;
     [SerializeField] private CameraShake _cameraShake;
+    [SerializeField] private AudioClip _basicSFX, _circleShotSFX, _tripleShotSFX;
+    private int _shootingIndex = 0;
 
     [Header("OrbUpgrade")]
     [SerializeField] private GameObject[] _orbUpgrade;
@@ -73,14 +71,12 @@ public class Player : MonoBehaviour, IDamageable
         UIManager.Instance.HealthBar(Health);
 
         _movement = GetComponent<PlayerMovement>();
+
+        AudioManager.Instance.SetSFX(_basicSFX);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            Heal();
-        }
 
         if (!_isDead || _gameManager.IsGameActive() == true)
         {
@@ -93,9 +89,12 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (Input.GetMouseButtonDown(0) && _canShoot == true)
         {
-            Instantiate(_projectilePrefab, _firePos.transform.position, _firePos.transform.rotation);
+            _playerAnim.ShootAnim(_shootingIndex);
+            AudioManager.Instance.PlaySFX();
+            
             _cameraShake.CallForShake();
             _canShoot = false;
+            Instantiate(_projectilePrefab, _firePos.transform.position, _firePos.transform.rotation);
             StartCoroutine(ShootCoolDownRoutine());
         }
     }
@@ -118,9 +117,6 @@ public class Player : MonoBehaviour, IDamageable
 
     public void AddUpgrade(string upgradeName)
     {
-        Debug.Log("We selected " + upgradeName);
-        //call the correct method to unlock upgrade
-        //switch
         switch (upgradeName)
         {
             case "Orbs":
@@ -197,7 +193,7 @@ public class Player : MonoBehaviour, IDamageable
 
     private void FirewallActivate()
     {
-        Debug.Log("Firewall Activated!");
+        _fireWalls[_fireWallsIndex].SetActive(true);
         _fireWallsIndex++;
         _pauseMenuUI.UpdateUpgradeLvl("Firewall", _fireWallsIndex);
         if(_fireWallsIndex >= _fireWalls.Length)
@@ -205,7 +201,6 @@ public class Player : MonoBehaviour, IDamageable
             UpgradeHandler.Instance.MaxedOutSkill("Firewall");
             return;
         }
-        _fireWalls[_fireWallsIndex - 1].SetActive(true);
     }
 
     private void SpeedIncrease()
@@ -222,11 +217,15 @@ public class Player : MonoBehaviour, IDamageable
 
     private void TripleShot()
     {
+        _shootingIndex = 3;
+        AudioManager.Instance.SetSFX(_tripleShotSFX);
         _projectilePrefab = _tripleShot;
     }
 
     private void CirlceShot()
     {
+        _shootingIndex = 2;
+        AudioManager.Instance.SetSFX(_circleShotSFX);
         _projectilePrefab = _circleShot;
     }
 
@@ -236,7 +235,7 @@ public class Player : MonoBehaviour, IDamageable
         _canShoot = true;
     }
 
-    private void Heal()
+    public void Heal()
     {
         int healAmount = Random.Range(20, 51);
         Health += healAmount;

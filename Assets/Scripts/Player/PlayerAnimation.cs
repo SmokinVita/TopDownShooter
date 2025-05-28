@@ -22,4 +22,20 @@ public class PlayerAnimation : MonoBehaviour
     {
         _anim.SetTrigger("Death");
     }
+
+    public void ShootAnim(int animIndex) //anim index 0 = basic shoot, 1 = circleShot, 3 = tripleShot
+    {
+        switch (animIndex)
+        {
+            case 1:
+                _anim.SetTrigger("CircleShot");
+                break;
+            case 2:
+                _anim.SetTrigger("TripleShot");
+                break;
+            default:
+                _anim.SetTrigger("BasicShot");
+                break;
+        }
+    }
 }
